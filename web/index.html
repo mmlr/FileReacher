@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>FileReacher</title>
+		<script src="index.js"></script>
+		<link rel="stylesheet" href="index.css">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Web access to remote storage">
+	</head>
+	<body>
+		<div id="uploadStatus">
+			<div class="progress"></div>
+			<div id="uploadInfo">
+				Uploading
+				<span class="name"></span>
+				-
+				<span class="pending">0</span> files left
+			</div>
+		</div>
+		<div id="drag"></div>
+		<div class="topRow">
+			<div id="path"></div>
+			<div id="mkdir" class="actions">
+				<img src="mkdir.svg" alt="New Directory" />
+				<label for="mkdir">New Directory</label>
+			</div>
+			<div id="upload" class="actions">
+				<img src="upload.svg" alt="Upload File" />
+				<label for="upload">Upload File</label>
+			</div>
+		</div>
+		<div id="listing"></div>
+	</body>
+</html>

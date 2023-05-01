@@ -1,0 +1,142 @@
+html {
+	font-family: sans-serif;
+	min-height: 100%;
+}
+
+html, body {
+	width: 100%;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	height: auto;
+	padding: 1em;
+}
+
+#drag {
+	display: none;
+	border: 5px solid transparent;
+	box-sizing: border-box;
+	position: fixed;
+	pointer-events: none;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+}
+
+html.drag #drag {
+	display: block;
+	border-color: lightgreen;
+}
+
+a {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+img {
+	width: 1em;
+	height: 1em;
+	margin: 0.5em;
+}
+
+.topRow, .actions {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.topRow {
+	flex-wrap: wrap;
+}
+
+#path {
+	padding: 0.5em 0;
+	flex-grow: 1;
+}
+
+#path a:first-child {
+	padding-left: 0;
+}
+
+#path a::after {
+	content: '/';
+	padding: 0 0.5em;
+}
+
+#listing {
+	display: flex;
+	flex-direction: column;
+	border: 1px solid black;
+	margin: 1em 0;
+}
+
+#listing .entry {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.25em;
+	border-bottom: 1px solid black;
+}
+
+#listing .entry:last-child {
+	border: none;
+}
+
+#listing .entry .title {
+	display: flex;
+	align-items: center;
+	flex-grow: 1;
+	flex-shrink: 1;
+	overflow: hidden;
+	white-space: nowrap;
+	hyphens: none;
+}
+
+#listing .entry .size {
+	margin: 0 0.5em;
+}
+
+#listing .entry .delete {
+	cursor: pointer;
+}
+
+#listing .dir {
+	background: lightgray;
+}
+
+#listing .file {
+	background: white;
+}
+
+#uploadStatus {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	#position: absolute;
+	width: 100%;
+	height: 1.5em;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	transition: opacity 0.25s ease-out;
+	transition-delay: 1s;
+}
+
+#uploadStatus.show {
+	opacity: 1;
+	transition: none;
+}
+
+#uploadStatus .progress {
+	align-self: flex-start;
+	height: 0.5em;
+	background-color: #ffc107;
+}

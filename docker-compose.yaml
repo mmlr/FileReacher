@@ -1,0 +1,42 @@
+version: '2'
+
+services:
+    filereacher:
+        image: mmlr/filereacher
+        ports:
+            - 5210:5210
+        environment:
+            FR_BACKEND: local
+            FR_LOCAL_BASE: /data
+        volumes:
+            - local_data:/data:rw
+        restart: always
+
+    sambareacher:
+        image: mmlr/filereacher
+        ports:
+            - 5211:5210
+        environment:
+            FR_BACKEND: samba
+            FR_SAMBA_HOST: samba
+            FR_SAMBA_SHARE: demo
+            FR_SAMBA_USER: filereacher
+            FR_SAMBA_PASSWORD: filereacher
+        depends_on:
+            - samba
+
+    samba:
+        image: dperson/samba
+        ports:
+            - 445:445
+        environment:
+            PERMISSIONS: 'yes'
+            USER: 'filereacher;filereacher'
+            SHARE: 'demo;/data;no;no;no;filereacher'
+        volumes:
+            - samba_data:/data:rw
+        restart: always
+
+volumes:
+    local_data:
+    samba_data:
