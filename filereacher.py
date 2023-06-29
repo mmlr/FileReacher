@@ -96,8 +96,7 @@ class SambaStorage(Storage):
 		self.share = os.environ['FR_SAMBA_SHARE']
 		self.name = self.share
 
-		smbclient.register_session(self.host,
-			username=os.environ['FR_SAMBA_USER'],
+		smbclient.ClientConfig(username=os.environ['FR_SAMBA_USER'],
 			password=os.environ['FR_SAMBA_PASSWORD'])
 
 	def join(self, path):
