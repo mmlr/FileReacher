@@ -32,9 +32,11 @@ class Storage(object):
 			if entry.is_dir():
 				dirs.append(entry.name)
 			elif entry.is_file():
+				stat = entry.stat()
 				files.append({
 						'name': entry.name,
-						'size': entry.stat().st_size
+						'size': stat.st_size,
+						'mtime': stat.st_mtime
 					})
 
 		return self.sortedList(dirs, files)
