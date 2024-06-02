@@ -1,6 +1,0 @@
-version: '2'
-
-services:
-    filereacher:
-        build: .
-        image: mmlr/filereacher

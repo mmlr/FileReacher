@@ -3,6 +3,7 @@ version: '2'
 services:
     filereacher:
         image: mmlr/filereacher
+        build: .
         ports:
             - 5210:5210
         environment:
@@ -14,6 +15,7 @@ services:
 
     sambareacher:
         image: mmlr/filereacher
+        build: .
         ports:
             - 5211:5210
         environment:
