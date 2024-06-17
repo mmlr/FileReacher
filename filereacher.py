@@ -9,7 +9,10 @@ import socketserver
 import threading
 import urllib.parse
 
-import smbclient
+try:
+	import smbclient
+except ImportError:
+	pass
 
 
 class Storage(object):
