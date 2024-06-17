@@ -161,7 +161,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
 	def parsePath(self):
 		_, _, path, query, _ = urllib.parse.urlsplit(self.path)
 		self.fields = urllib.parse.parse_qs(query) if query else {}
-		return path
+		return f'/{path.split("/")[-1]}'
 
 	def decodeField(self, name):
 		return base64.b64decode(self.fields[name][0]).decode() \

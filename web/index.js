@@ -82,7 +82,7 @@ function createEntry(name, type)
 		if (!to)
 			return;
 
-		fetch(`/rename?${pathArg(name)}&to=${encodePath(to)}`, {
+		fetch(`rename?${pathArg(name)}&to=${encodePath(to)}`, {
 				method: 'PUT',
 				cache: 'no-cache'
 			}).then(checkedRefresh).catch(error);
@@ -121,7 +121,7 @@ function createFile(name, size)
 	element.classList.add('file');
 
 	let title = element.querySelector('.title');
-	title.href = `/download?${path}`;
+	title.href = `download?${path}`;
 	title.download = name;
 
 	let sizeLabel = document.createElement('span');
@@ -134,7 +134,7 @@ function createFile(name, size)
 		if (!confirm(`Delete ${name}?`))
 			return;
 
-		fetch(`/delete?${path}`, {
+		fetch(`delete?${path}`, {
 				method: 'DELETE',
 				cache: 'no-cache'
 			}).then(checkedRefresh).catch(error);
@@ -152,7 +152,7 @@ function createDir(name)
 
 	let title = element.querySelector('.title');
 	let path = name == '..' ? pathArg(undefined, -1) : pathArg(name);
-	title.href = `/?${path}`;
+	title.href = `?${path}`;
 	title.onclick = (event) => {
 		navigate(name, true);
 		event.preventDefault();
@@ -167,7 +167,7 @@ function createDir(name)
 			if (!confirm(`Delete ${name} and its contents?`))
 				return;
 
-			fetch(`/rmdir?${path}`, {
+			fetch(`rmdir?${path}`, {
 					method: 'DELETE',
 					cache: 'no-cache'
 				}).then(checkedRefresh).catch(error);
@@ -202,7 +202,7 @@ function navigate(name, addToHistory)
 			element.textContent = path ? path : info.name;
 
 			let encoded = btoa(join(undefined, index + 1));
-			element.href = `/?path=${encoded}`;
+			element.href = `?path=${encoded}`;
 			element.onclick = (event) => {
 				restorePath(encoded, true);
 				event.preventDefault();
@@ -211,7 +211,7 @@ function navigate(name, addToHistory)
 		});
 
 	if (addToHistory)
-		history.pushState({}, currentPath.slice(-1), `/?${pathArg()}`);
+		history.pushState({}, currentPath.slice(-1), `?${pathArg()}`);
 
 	navigation.replaceChildren(...elements);
 	document.title
@@ -225,7 +225,7 @@ function list(clear)
 	if (clear)
 		listing.replaceChildren();
 
-	return fetch(`/list?${pathArg()}`).then(check)
+	return fetch(`list?${pathArg()}`).then(check)
 		.then((result) => {
 			let elements = [];
 			if (currentPath.length > 1)
@@ -278,7 +278,7 @@ function hideUploadStatus()
 
 function startUpload(file, path)
 {
-	return fetch(`/upload?${path}&size=${file.size}`, {
+	return fetch(`upload?${path}&size=${file.size}`, {
 			method: 'POST',
 			cache: 'no-cache'
 		})
@@ -295,7 +295,7 @@ function uploadChunk(file, cookie, offset)
 		return completeUpload(cookie);
 
 	let slice = file.slice(offset, offset + chunkSize);
-	return fetch(`/upload?cookie=${cookie}&offset=${offset}`, {
+	return fetch(`upload?cookie=${cookie}&offset=${offset}`, {
 			method: 'PATCH',
 			cache: 'no-cache',
 			body: slice
@@ -308,7 +308,7 @@ function uploadChunk(file, cookie, offset)
 
 function completeUpload(cookie)
 {
-	return fetch(`/upload?cookie=${cookie}`, {
+	return fetch(`upload?cookie=${cookie}`, {
 			method: 'PUT',
 			cache: 'no-cache'
 		})
@@ -372,7 +372,7 @@ function mkdir()
 	if (!name)
 		return;
 
-	return fetch(`/mkdir?${pathArg(name)}`, {
+	return fetch(`mkdir?${pathArg(name)}`, {
 			method: 'POST',
 			cache: 'no-cache'
 		})
@@ -411,7 +411,7 @@ function init()
 	target.ondragleave = (event) => glow(event, false);
 
 	window.onpopstate = popstate;
-	fetch('/info').then((result) => result.json())
+	fetch('info').then((result) => result.json())
 		.then((result) => info = result).then(popstate);
 }
 
